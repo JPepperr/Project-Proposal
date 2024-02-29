@@ -21,14 +21,26 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
-\bibitem{vaswani2017attention}
-A.~Vaswani, N.~Shazeer, N.~Parmar, J.~Uszkoreit, L.~Jones, A.~N. Gomez,
-  {\L}.~Kaiser, and I.~Polosukhin, ``Attention is all you need,''
-  \emph{Advances in neural information processing systems}, vol.~30, 2017.
+\bibitem{zheng}
+Y.~Zheng, G.~Li, Y.~Li, C.~Shan, and R.~Cheng, ``Truth inference in
+  crowdsourcing: Is the problem solved?'' in \emph{Proceedings of the VLDB
+  Endowment}, vol.~10, 2017, pp. 541--552.
 
-\bibitem{C2}
-C.~Jones, A.~Smith, and E.~Roberts, ``Article title,'' in \emph{Proceedings
-  Title}, vol.~II.\hskip 1em plus 0.5em minus 0.4em\relax IEEE, 2003, pp.
-  803--806.
+\bibitem{ds}
+A.~Dawid and A.~Skene, ``Maximum likelihood estimation of observer error-rates
+  using the em algorithm,'' in \emph{Applied statistics}, 1979, pp. 20--28.
+
+\bibitem{bcc}
+C.~Kim, H and Z.~Ghahramani, ``Bayesian classifier combination,'' in
+  \emph{AISTATS}, 2012, pp. 619--627.
+
+\bibitem{lfc}
+V.~Raykar, S.~Yu, L.~Zhao, G.~Valadez, C.~Florin, L.~Bogoni, and L.~Moy,
+  ``Learning from crowds,'' in \emph{JMLR}, 2010, pp. 1297--1322.
+
+\bibitem{em}
+A.~Dempster, N.~Laird, and D.~Rubin, ``Maximum likelihood from incomplete data
+  via the em algorithm,'' in \emph{Journal of the royal statistical society},
+  ser. B (methodological), 1977, pp. 1--38.
 
 \end{thebibliography}

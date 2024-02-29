@@ -27,218 +27,62 @@ Weather forecasting and nowcasting have always been really tough challenges for 
 \end{abstract}
 
 \begin{IEEEkeywords}
-UGC, forecast, nowcast
+User-generated content, forecast, nowcast, ground truth
 \end{IEEEkeywords}
 
 \section{Introduction}
-In our time, there are many data sources through which weather conditions can be determined: satellites, radars, stations, camera recordings, among others. All sources have their own advantages and disadvantages. For instance, stations provide good accuracy but are not found everywhere. Conversely, satellites offer wide coverage but can be inaccurate; also, regularly requesting data from them is expensive. Thus, it is impossible to choose a single specific source to rely on when making a weather forecast. For this reason, data is collected from different sources, combined and aggregated using mathematical statistics and machine learning methods. Historical data can also be used for constructing weather forecasts to identify patterns in them and extrapolate to the present. As can be seen, there is a vast amount of data available for forecast construction, and they are all very diverse. Additionally, it must be considered that Earth is a giant planet with a large atmosphere. Calculating an absolutely accurate forecast for the Earth is impossible, even on the most powerful modern computers, partly because there simply isn't enough processing power, and partly because weather change patterns are not fully understood - currently, there are hundreds, or even thousands of meteorological parameters that are interconnected and not so easy to calculate. Therefore, constructing a weather forecast is not only a computational task but also an approximative one.
+In our time, there are many data sources through which weather conditions can be determined: satellites, radars, stations, camera recordings, among others. All sources have their own advantages and disadvantages. For instance, stations provide good accuracy but are not found everywhere. Conversely, satellites offer wide coverage but can be inaccurate, also, regularly requesting data from them is expensive. Thus, it is impossible to choose a single specific source to rely on when making a weather forecast. For this reason, data is collected from different sources, combined and aggregated using mathematical statistics and machine learning methods. Historical data can also be used for constructing weather forecasts to identify patterns in them and extrapolate to the present. As can be seen, there is a vast amount of data available for forecast construction, and they are all very diverse. Additionally, it must be considered that Earth is a giant planet with a large atmosphere. Calculating an absolutely accurate forecast for the Earth is impossible, even on the most powerful modern computers, partly because there simply isn't enough processing power, and partly because weather change patterns are not fully understood - currently, there are hundreds, or even thousands of meteorological parameters that are interconnected and not so easy to calculate. Therefore, constructing a weather forecast is not only a computational task but also an approximative one.
 It is necessary to understand how the Earth can be divided into a grid and how to calculate the forecast in each pixel, this article will not touch on a comprehensive description of these details. Further, the article will discuss user-generated content and how it helps improve the forecast and validate the current nowcast.
 
-The remainder of this article is organized as follows. In Section 2, related literature will be reviewed and some crowdsorcing methods will be briefly described. In Section 3, the methodology is introduced. Section 4 discusses the expected results. Section 5 concludes the paper.
+The remainder of this article is organized as follows. In Section 2, related literature will be reviewed and some crowdsourcing methods will be briefly described. In Section 3, the methodology is introduced. Section 4 discusses the expected results. Section 5 concludes the paper.
 
-\section{Ease of Use}
+\section{Background on Crowdsourcing}
 
-\subsection{Maintaining the Integrity of the Specifications}
+User-generated content helps to improve nowcasting, one could even say that it constitutes essential data that should be relied upon when calculating nowcasts. However, there are several issues. The first is that there are not users everywhere willing to provide information, which is related to the fact that users do not often need to check the weather throughout the day, and even fewer visit an app or website for this purpose, with even fewer ready to provide information about the current weather situation in their location. Nevertheless, it is precisely in such places that user data plays a significant role, as less populated areas usually have fewer sources of data. The second problem is frauders, in other words, people who intentionally provide maliscious information.
 
-The IEEEtran class file is used to format your paper and style the text. All margins,
-column widths, line spaces, and text fonts are prescribed; please do not
-alter them. You may note peculiarities. For example, the head margin
-measures proportionately more than is customary. This measurement
-and others are deliberate, using specifications that anticipate your paper
-as one part of the entire proceedings, and not as an independent document.
-Please do not revise any of the current designations.
+To simplify, the task will first be solved only for precipitation. Users can report in the interface whether there is precipitation in their location at the current moment. Thus, our task is reduced to the well-known crowdsourcing problem: decision-making task with single right choice, which is inherently unknown.
 
-\section{Prepare Your Paper Before Styling}
-Before you begin to format your paper, first write and save the content as a
-separate text file. Complete all content and organizational editing before
-formatting. Please note sections \ref{AA}--\ref{SCM} below for more information on
-proofreading, spelling and grammar.
+There are studies~\cite{zheng} that compare algorithms for solving such a task. It is planned to select the algorithms that have performed the best according to \textit{F1-score} and \textit{Accuracy}: D\&S~\cite{ds}, BCC~\cite{bcc}, LFC~\cite{lfc}. These methods are based on an EM-algorithm~\cite{em}, that allows to iteratively calculate the weight of the voice for the user. The article also suggests some optimizations for improving the detection of ground truth, which could be applicable to our task as well.
 
-Keep your text and graphic files separate until after the text has been
-formatted and styled. Do not number text heads---{\LaTeX} will do that
-for you.
+\section{Methodology}
+\subsection{Ground truth}
 
-\subsection{Abbreviations and Acronyms}\label{AA}
-Define abbreviations and acronyms the first time they are used in the text,
-even after they have been defined in the abstract. Abbreviations such as
-IEEE, SI, MKS, CGS, ac, dc, and rms do not have to be defined. Do not use
-abbreviations in the title or heads unless they are unavoidable.
+The question of how to determine which algorithm ultimately provides the best result remains open. To do this, the algorithm's performance is usually checked on data where the correct answer is known in advance. In the case of precipitation forecasting, such data do not exist, because all sources can be inaccurate. In that case, there is no choice but to select the sources in which we have the most confidence. Meteorologists have reported that data from stations around the world and radars, but only within the territory of Russia, can be considered the ground truth. The pipeline for selecting an algorithm is as follows: run calculations of the chosen methods on historical log of reports, then compare the final results with the ground truth data and calculate the \textit{F1-score} and \textit{Accuracy}.
 
-\subsection{Units}
-\begin{itemize}
-\item Use either SI (MKS) or CGS as primary units. (SI units are encouraged.) English units may be used as secondary units (in parentheses). An exception would be the use of English units as identifiers in trade, such as ``3.5-inch disk drive''.
-\item Avoid combining SI and CGS units, such as current in amperes and magnetic field in oersteds. This often leads to confusion because equations do not balance dimensionally. If you must use mixed units, clearly state the units for each quantity that you use in an equation.
-\item Do not mix complete spellings and abbreviations of units: ``Wb/m\textsuperscript{2}'' or ``webers per square meter'', not ``webers/m\textsuperscript{2}''. Spell out units when they appear in text: ``. . . a few henries'', not ``. . . a few H''.
-\item Use a zero before decimal points: ``0.25'', not ``.25''. Use ``cm\textsuperscript{3}'', not ``cc''.)
-\end{itemize}
+\subsection{Implementation}
 
-\subsection{Equations}
-Number equations consecutively. To make your
-equations more compact, you may use the solidus (~/~), the exp function, or
-appropriate exponents. Italicize Roman symbols for quantities and variables,
-but not Greek symbols. Use a long dash rather than a hyphen for a minus
-sign. Punctuate equations with commas or periods when they are part of a
-sentence, as in:
-\begin{equation}
-a+b=\gamma\label{eq}
-\end{equation}
+Choosing an algorithm is one side of the task. The other side is no less challenging - its implementation. There are many sources for calculating the forecast, so new data often appears, and old data may be updated, meaning the forecast and nowcast needs to be recalculated regularly. The forecast calculation pipeline involves a lot of data, sources, stages, and models. Currently, the trend is to create such complicated services on a microservice architecture. This approach simplifies development and release, while in our company, there are all the tools for configuring routing between microservices, for tracing requests, and for conducting experiments. A separate service is responsible for user reports, with functionality to:
+\begin{enumerate}
+	\item Save user reports.
+	\item Send aggregated results for a given time and pixel.
+	\item Be able to handle tens of millions of users and tens of millions of pixels. This sets the performance requirements for the algorithm to be implemented in the microservice.
+\end{enumerate}
 
-Be sure that the
-symbols in your equation have been defined before or immediately following
-the equation. Use ``\eqref{eq}'', not ``Eq.~\eqref{eq}'' or ``equation \eqref{eq}'', except at
-the beginning of a sentence: ``Equation \eqref{eq} is . . .''
+There are several approaches to working with user credibility:
+\begin{enumerate}
+	\item Work directly with the database.
+	\item Save a snapshot of the database in RAM, perform aggregations on data from it. Update the credibility in real-time in the database.
+	\item Perform aggregations on the snapshot loaded into memory, and make all credibility updates offline.
+\end{enumerate}
 
-\subsection{\LaTeX-Specific Advice}
+The first approach can be implemented with modern databases, such as PostgreSQL or MySQL, for instance, if they are configured with sufficient resources. However, in our case, all microservices use a single database, which already experiences significant load. We consider it a flawed approach when the database load depends on the service traffic, making the behavior unpredictable and dangerous. Also, it is worth noting that recalculating credibility online is not essential, it doesn't change significantly over a few nowcasting steps. Therefore, the third approach seems the most valid. If credibility is updated offline, additional data not available at runtime can be used. For example, in calculating the ground truth for a nowcasting step, the confidence of our model in the presence of precipitation can be taken into account.
 
-Please use ``soft'' (e.g., \verb|\eqref{Eq}|) cross references instead
-of ``hard'' references (e.g., \verb|(1)|). That will make it possible
-to combine sections, add equations, or change the order of figures or
-citations without having to go through the file line by line.
+\subsection{Experimaents}
 
-Please don't use the \verb|{eqnarray}| equation environment. Use
-\verb|{align}| or \verb|{IEEEeqnarray}| instead. The \verb|{eqnarray}|
-environment leaves unsightly spaces around relation symbols.
+When the logic within a large and production-critical microservice changes, it is essential to ensure the modifications work and actually improve the service before release. The main difficulty in evaluating changes in nowcasting calculations stems from the fact that all possible data are already being used for calculation. There is no absolutely correct ground truth result, and validating the model's work on the data it used for the calculation is obviously the wrong approach. So how should one check? There are two approaches:
+\begin{enumerate}
+	\item \textbf{Online check.} It is possible to conduct A/B testing. A/B testing is a technology that allows the comparison of two versions of a product. In short, a certain sample of users will see and work with one version (A), while all others interact with version B. In both cases, certain metrics are measured, which can be compared at the end of the testing to decide which version performs better. In our task, different samples of users can be shown different results of the nowcast calculation. Naturally, this will change the number and nature of user reports. Then, all the data can be analyzed, trying to find the ground truth and compare it with that.
+	\item \textbf{Offline check.} For the current model, it is known which data were fed to it in the past. The model also calculates a forecast for some time in the future. That is, the model computes an array of results $[r_{t_0}, r_{t_1}, r_{t_2}, \dots, r_{t_n}]$. In such a case, the new model can be given the same data and asked to calculate the result, but only considering its own report credibility, resulting in $[r^{new}_{t_0}, r^{new}_{t_1}, r^{new}_{t_2}, \dots, r^{new}_{t_n}]$. In this case, it will be possible to compare the results for future predictions, i.e. $[r^{new}_{t_k}, \dots, r^{new}_{t_n}]$ and $[r_{t_k}, \dots, r_{t_n}]$. At the same time, these moments also eventually become part of the past, meaning the more accurate forecast known about them can be used as ground truth.
+\end{enumerate}
 
-Please note that the \verb|{subequations}| environment in {\LaTeX}
-will increment the main equation counter even when there are no
-equation numbers displayed. If you forget that, you might write an
-article in which the equation numbers skip from (17) to (20), causing
-the copy editors to wonder if you've discovered a new method of
-counting.
+\section{Expected results}
+\section{Conclusion}
 
-{\BibTeX} does not work by magic. It doesn't get the bibliographic
-data from thin air but from .bib files. If you use {\BibTeX} to produce a
-bibliography you must send the .bib files.
-
-{\LaTeX} can't read your mind. If you assign the same label to a
-subsubsection and a table, you might find that Table I has been cross
-referenced as Table IV-B3.
-
-{\LaTeX} does not have precognitive abilities. If you put a
-\verb|\label| command before the command that updates the counter it's
-supposed to be using, the label will pick up the last counter to be
-cross referenced instead. In particular, a \verb|\label| command
-should not go before the caption of a figure or a table.
-
-Do not use \verb|\nonumber| inside the \verb|{array}| environment. It
-will not stop equation numbers inside \verb|{array}| (there won't be
-any anyway) and it might stop a wanted equation number in the
-surrounding equation.
-
-\subsection{Some Common Mistakes}\label{SCM}
-\begin{itemize}
-\item The word ``data'' is plural, not singular.
-\item The subscript for the permeability of vacuum $\mu_{0}$, and other common scientific constants, is zero with subscript formatting, not a lowercase letter ``o''.
-\item In American English, commas, semicolons, periods, question and exclamation marks are located within quotation marks only when a complete thought or name is cited, such as a title or full quotation. When quotation marks are used, instead of a bold or italic typeface, to highlight a word or phrase, punctuation should appear outside of the quotation marks. A parenthetical phrase or statement at the end of a sentence is punctuated outside of the closing parenthesis (like this). (A parenthetical sentence is punctuated within the parentheses.)
-\item A graph within a graph is an ``inset'', not an ``insert''. The word alternatively is preferred to the word ``alternately'' (unless you really mean something that alternates).
-\item Do not use the word ``essentially'' to mean ``approximately'' or ``effectively''.
-\item In your paper title, if the words ``that uses'' can accurately replace the word ``using'', capitalize the ``u''; if not, keep using lower-cased.
-\item Be aware of the different meanings of the homophones ``affect'' and ``effect'', ``complement'' and ``compliment'', ``discreet'' and ``discrete'', ``principal'' and ``principle''.
-\item Do not confuse ``imply'' and ``infer''.
-\item The prefix ``non'' is not a word; it should be joined to the word it modifies, usually without a hyphen.
-\item There is no period after the ``et'' in the Latin abbreviation ``et al.''.
-\item The abbreviation ``i.e.'' means ``that is'', and the abbreviation ``e.g.'' means ``for example''.
-\end{itemize}
-An excellent style manual for science writers is \cite{b7}.
-
-\subsection{Authors and Affiliations}
-\textbf{The class file is designed for, but not limited to, six authors.} A
-minimum of one author is required for all conference articles. Author names
-should be listed starting from left to right and then moving down to the
-next line. This is the author sequence that will be used in future citations
-and by indexing services. Names should not be listed in columns nor group by
-affiliation. Please keep your affiliations as succinct as possible (for
-example, do not differentiate among departments of the same organization).
-
-\subsection{Identify the Headings}
-Headings, or heads, are organizational devices that guide the reader through
-your paper. There are two types: component heads and text heads.
-
-Component heads identify the different components of your paper and are not
-topically subordinate to each other. Examples include Acknowledgments and
-References and, for these, the correct style to use is ``Heading 5''. Use
-``figure caption'' for your Figure captions, and ``table head'' for your
-table title. Run-in heads, such as ``Abstract'', will require you to apply a
-style (in this case, italic) in addition to the style provided by the drop
-down menu to differentiate the head from the text.
-
-Text heads organize the topics on a relational, hierarchical basis. For
-example, the paper title is the primary text head because all subsequent
-material relates and elaborates on this one topic. If there are two or more
-sub-topics, the next level head (uppercase Roman numerals) should be used
-and, conversely, if there are not at least two sub-topics, then no subheads
-should be introduced.
-
-\subsection{Figures and Tables}
-\paragraph{Positioning Figures and Tables} Place figures and tables at the top and
-bottom of columns. Avoid placing them in the middle of columns. Large
-figures and tables may span across both columns. Figure captions should be
-below the figures; table heads should appear above the tables. Insert
-figures and tables after they are cited in the text. Use the abbreviation
-``Fig.~\ref{fig}'', even at the beginning of a sentence.
-
-\begin{table}[t]
-\caption{Table Type Styles}
-\begin{center}
-\begin{tabular}{|c|c|c|c|}
-\hline
-\textbf{Table}&\multicolumn{3}{|c|}{\textbf{Table Column Head}} \\
-\cline{2-4}
-\textbf{Head} & \textbf{\textit{Table column subhead}}& \textbf{\textit{Subhead}}& \textbf{\textit{Subhead}} \\
-\hline
-copy& More table copy$^{\mathrm{a}}$& &  \\
-\hline
-\multicolumn{4}{l}{$^{\mathrm{a}}$Sample of a Table footnote.}
-\end{tabular}
-\label{tab1}
-\end{center}
-\end{table}
-
-\begin{figure}[b]
-	\centerline{\includegraphics{fig1.png}}
-	\caption{Example of a figure caption.}
-	\label{fig}
-\end{figure}
-
-Figure Labels: Use 8 point Times New Roman for Figure labels. Use words
-rather than symbols or abbreviations when writing Figure axis labels to
-avoid confusing the reader. As an example, write the quantity
-``Magnetization'', or ``Magnetization, M'', not just ``M''. If including
-units in the label, present them within parentheses. Do not label axes only
-with units. In the example, write ``Magnetization (A/m)'' or ``Magnetization
-\{A[m(1)]\}'', not just ``A/m''. Do not label axes with a ratio of
-quantities and units. For example, write ``Temperature (K)'', not
-``Temperature/K''.
-
-\section*{Acknowledgment}
-
-The preferred spelling of the word ``acknowledgment'' in America is without
-an ``e'' after the ``g''. Avoid the stilted expression ``one of us (R. B.
-G.) thanks $\ldots$''. Instead, try ``R. B. G. thanks$\ldots$''. Put sponsor
-acknowledgments in the unnumbered footnote on the first page.
-
-\section*{References}
-
-Please number citations consecutively within brackets \cite{vaswani2017attention}. The
-sentence punctuation follows the bracket \cite{vaswani2017attention}. Refer simply to the reference
-number, as in \cite{C2}---do not use ``Ref. \cite{C2}'' or ``reference \cite{C2}'' except at
-the beginning of a sentence: ``Reference \cite{C2} was the first $\ldots$''
-
-Number footnotes separately in superscripts. Place the actual footnote at
-the bottom of the column in which it was cited. Do not put footnotes in the
-abstract or reference list. Use letters for table footnotes.
-
-Unless there are six authors or more give all authors' names; do not use
-``et al.''. Papers that have not been published, even if they have been
-submitted for publication, should be cited as ``unpublished'' \cite{C2}. Papers
-that have been accepted for publication should be cited as ``in press'' \cite{C2}.
-Capitalize only the first word in a paper title, except for proper nouns and
-element symbols.
-
-For papers published in translation journals, please give the English
-citation first, followed by the original foreign-language citation \cite{vaswani2017attention}.
+In conclusion, assessing the credibility of user-generated content for real-time refinement of forecast and nowcast is a comprehensive task that includes researches upon various areas. Given the uncertainty in selecting methods for determining credibility and ground truth, coupled with the challenges in conducting experiments, it can be stated that this problem possesses both a programming and a research dimension. Nevertheless, it is clear that the task is useful and should bring some improvements to the calculation of weather forecasts and nowcasts, because it makes the data more accurate. If this does not happen, it would more likely be a reason to doubt the correctness of the experiments and data processing, rather than the usefulness of the task.
 
 \bibliographystyle{IEEEtran}
 \bibliography{refs}
+
+Word count: 1545
 
 \end{document}
