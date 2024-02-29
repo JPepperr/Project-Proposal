@@ -1,14 +1,14 @@
 # Fdb version 3
-["bibtex project_proposal"] 1709177200 "project_proposal.aux" "project_proposal.bbl" "project_proposal" 1709177206
+["bibtex project_proposal"] 1709177927 "project_proposal.aux" "project_proposal.bbl" "project_proposal" 1709177951
   "./IEEEtran.bst" 1642447436 59506 016987d9be15acf51cdd7252d40ecec2 ""
-  "project_proposal.aux" 1709177206 1180 bc5c80826833bb9aa5489f1156bbb4bf "pdflatex"
+  "project_proposal.aux" 1709177951 1076 bf3f58e43d1c39b349a82660db3f00dd "pdflatex"
   "refs.bib" 1709165799 1913 0d6f932faeb2e7b2d36515e852e0d5ff ""
   (generated)
   "project_proposal.bbl"
   "project_proposal.blg"
-["pdflatex"] 1709177205 "/home/jpepper/MyFiles/ProjectProposal/template/project_proposal.tex" "project_proposal.pdf" "project_proposal" 1709177206
+["pdflatex"] 1709177950 "/home/jpepper/MyFiles/ProjectProposal/template/project_proposal.tex" "project_proposal.pdf" "project_proposal" 1709177951
   "/etc/texmf/web2c/texmf.cnf" 1709138684 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/jpepper/MyFiles/ProjectProposal/template/project_proposal.tex" 1709177205 11690 615d20c20e0cc6890ccc49d14b4a02a8 ""
+  "/home/jpepper/MyFiles/ProjectProposal/template/project_proposal.tex" 1709177950 11616 fb495568b44f4a8cdae427ae9c998533 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/times/ptmb7t.tfm" 1136768653 2172 fd0c924230362ff848a33632ed45dc23 ""
@@ -72,9 +72,9 @@
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1709139950 4379155 98693266ff65f58d9f98aff394de12d2 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1709139979 2799532 063545cb6e34a8612f1433af213a6f2d ""
   "IEEEtran.cls" 1677230907 288288 3424f26395e0eab61f5acefcfe37701e ""
-  "project_proposal.aux" 1709177206 1180 bc5c80826833bb9aa5489f1156bbb4bf "pdflatex"
-  "project_proposal.bbl" 1709177200 1741 d86c2e1889610377fa9fa0675c505366 "bibtex project_proposal"
-  "project_proposal.tex" 1709177205 11690 615d20c20e0cc6890ccc49d14b4a02a8 ""
+  "project_proposal.aux" 1709177951 1076 bf3f58e43d1c39b349a82660db3f00dd "pdflatex"
+  "project_proposal.bbl" 1709177927 1741 d86c2e1889610377fa9fa0675c505366 "bibtex project_proposal"
+  "project_proposal.tex" 1709177950 11616 fb495568b44f4a8cdae427ae9c998533 ""
   (generated)
   "project_proposal.aux"
   "project_proposal.log"
